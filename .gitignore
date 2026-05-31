@@ -2,10 +2,6 @@ node_modules/
 dist/
 dist-electron/
 
-# Bedrock converter core
-electron/bedrockPipeline.cjs
-src/components/tools/bedrockConverter/
-
 # Env & secrets
 .env
 .env.*
