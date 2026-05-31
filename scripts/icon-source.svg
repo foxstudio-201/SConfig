@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tile-bg" x1="48" y1="32" x2="464" y2="480" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1e1b4b"/>
+      <stop offset="0.55" stop-color="#312e81"/>
+      <stop offset="1" stop-color="#4c1d95"/>
+    </linearGradient>
+    <radialGradient id="tile-glow" cx="256" cy="220" r="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366f1" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="logo-shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#818cf8" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="108" fill="url(#tile-bg)"/>
+  <rect width="512" height="512" rx="108" fill="url(#tile-glow)"/>
+  <rect x="36" y="36" width="440" height="440" rx="92" fill="none" stroke="#a5b4fc" stroke-opacity="0.18" stroke-width="2"/>
+
+  <g transform="translate(256 262) scale(12) translate(-16 -16)" filter="url(#logo-shadow)">
+    <defs>
+      <linearGradient id="logo-file-grad" x1="8" y1="3" x2="22" y2="27" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#312e81"/>
+        <stop offset="1" stop-color="#1e1b4b"/>
+      </linearGradient>
+    </defs>
+    <path
+      d="M8 4.5C8 3.67 8.67 3 9.5 3h8.79c.53 0 1.04.21 1.41.59l3.21 3.21c.38.37.59.88.59 1.41V25.5c0 .83-.67 1.5-1.5 1.5h-12A1.5 1.5 0 0 1 8 25.5V4.5Z"
+      fill="url(#logo-file-grad)"
+      stroke="#a5b4fc"
+      stroke-width="1.2"
+    />
+    <path
+      d="M18.29 3.59A1 1 0 0 1 19 3h.5v5.5H25a1 1 0 0 1-.59.29l-6.12-6.12Z"
+      fill="#6366f1"
+      stroke="#818cf8"
+      stroke-width="0.8"
+    />
+    <rect x="10.5" y="12" width="9" height="1.2" rx="0.6" fill="#c7d2fe" opacity="0.85"/>
+    <rect x="10.5" y="15.2" width="7" height="1.2" rx="0.6" fill="#a5b4fc" opacity="0.65"/>
+    <rect x="10.5" y="18.4" width="8.5" height="1.2" rx="0.6" fill="#818cf8" opacity="0.5"/>
+    <g transform="translate(23 23) rotate(-42)">
+      <circle cx="0" cy="-6.2" r="3.6" fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.15"/>
+      <circle cx="0" cy="-6.2" r="1.45" fill="#4338ca" stroke="#6366f1" stroke-width="0.6"/>
+      <rect x="-1.35" y="-3.2" width="2.7" height="8.8" rx="1.1" fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.05"/>
+      <path
+        d="M-3.35 5.55 0 2.05 3.35 5.55 2.45 6.35 0.85 4.35 -0.85 4.35 -2.45 6.35 Z"
+        fill="#eef2ff"
+        stroke="#a5b4fc"
+        stroke-width="1.05"
+        stroke-linejoin="round"
+      />
+      <path d="M-1.05 2.35 H1.05" stroke="#6366f1" stroke-width="0.85" stroke-linecap="round"/>
+      <circle cx="0" cy="-6.2" r="0.55" fill="#c7d2fe"/>
+    </g>
+  </g>
+</svg>
