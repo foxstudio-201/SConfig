@@ -25,13 +25,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps --ignore-scripts
+        run: npm ci --legacy-peer-deps
+
+      - name: Verify Electron binary
+        run: npx electron --version
 
       - name: Generate icons
         run: npm run generate:icons
-
-      - name: Download Electron binary
-        run: npx electron --version
 
       - name: Setup code signing certificate (optional)
         shell: pwsh
@@ -115,7 +115,10 @@ jobs:
             rpm
 
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps --ignore-scripts
+        run: npm ci --legacy-peer-deps
+
+      - name: Verify Electron binary
+        run: npx electron --version
 
       - name: Generate icons
         run: npm run generate:icons
