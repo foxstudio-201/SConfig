@@ -88,6 +88,9 @@ jobs:
   build-linux:
     name: Build Linux (x64)
     runs-on: ubuntu-latest
+    # GitHub-hosted runners cannot use Electron SUID sandbox (chrome-sandbox)
+    env:
+      ELECTRON_DISABLE_SANDBOX: 1
 
     steps:
       - name: Checkout
@@ -130,6 +133,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
+          ELECTRON_DISABLE_SANDBOX: 1
         run: npx electron-builder --linux --x64 --publish never
 
       - name: List build output
