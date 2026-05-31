@@ -4,7 +4,7 @@ const path = require('path')
 
 
 
-const UPDATE_REPO = process.env.SCONFIG_UPDATE_REPO || 'FoxStudio/Sconfig'
+const UPDATE_REPO = process.env.SCONFIG_UPDATE_REPO || 'foxstudio-201/SConfig'
 
 const UPDATE_TIMEOUT_MS = 8000
 
@@ -46,7 +46,30 @@ function compareVersions(a, b) {
 
 }
 
-
+function pickInstallerAsset(assets = [], platform = process.platform) {
+  const list = Array.isArray(assets) ? assets : []
+  if (platform === 'linux') {
+    return (
+      list.find((a) => /\.AppImage$/i.test(a.name) && a.browser_download_url) ||
+      list.find((a) => /\.deb$/i.test(a.name) && a.browser_download_url) ||
+      list.find((a) => /\.rpm$/i.test(a.name) && a.browser_download_url) ||
+      null
+    )
+  }
+  if (platform === 'darwin') {
+    return (
+      list.find((a) => /\.dmg$/i.test(a.name) && a.browser_download_url) ||
+      list.find((a) => /\.zip$/i.test(a.name) && /mac/i.test(a.name) && a.browser_download_url) ||
+      null
+    )
+  }
+  return (
+    list.find((a) => /setup.*\.exe$/i.test(a.name) && a.browser_download_url) ||
+    list.find((a) => /\.exe$/i.test(a.name) && a.browser_download_url) ||
+    list.find((a) => /\.msi$/i.test(a.name) && a.browser_download_url) ||
+    null
+  )
+}
 
 async function checkForUpdates(currentVersion) {
 
@@ -75,21 +98,20 @@ async function checkForUpdates(currentVersion) {
     const latest = String(data.tag_name || '').replace(/^v/i, '')
 
     if (latest && compareVersions(latest, currentVersion) > 0) {
-
+      const asset = pickInstallerAsset(data.assets)
+      const downloadUrl = asset?.browser_download_url || null
       return {
-
         status: 'available',
-
         currentVersion,
-
         latestVersion: latest,
-
-        url: data.html_url || null,
-
-        message: `Update v${latest} available`,
-
+        url: downloadUrl || data.html_url || null,
+        releaseUrl: data.html_url || null,
+        assetName: asset?.name || null,
+        hasInstaller: Boolean(downloadUrl),
+        message: downloadUrl
+          ? `Update v${latest} available`
+          : `Update v${latest} available (no installer file on release yet)`,
       }
-
     }
 
     return { status: 'current', currentVersion, latestVersion: latest || currentVersion, message: 'You are up to date' }

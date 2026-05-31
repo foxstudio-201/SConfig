@@ -6,6 +6,7 @@ import {
   ServerStackIcon as ServerOutline,
   FolderOpenIcon as FolderOutline,
   Cog6ToothIcon as CogOutline,
+  GiftIcon as GiftOutline,
 } from '@heroicons/react/24/outline'
 import {
   HomeIcon as HomeSolid,
@@ -13,6 +14,7 @@ import {
   ServerStackIcon as ServerSolid,
   FolderOpenIcon as FolderSolid,
   Cog6ToothIcon as CogSolid,
+  GiftIcon as GiftSolid,
 } from '@heroicons/react/24/solid'
 
 const NAV = [
@@ -21,7 +23,7 @@ const NAV = [
   { id: 'servers',   labelKey: 'nav.servers',   Outline: ServerOutline, Solid: ServerSolid },
   { id: 'files',     labelKey: 'nav.files',     Outline: FolderOutline, Solid: FolderSolid },
   { id: 'settings',  labelKey: 'nav.settings',  Outline: CogOutline,    Solid: CogSolid    },
-  //{ id: 'donate',    labelKey: 'nav.dotates',   Outline: }
+  { id: 'donate',    labelKey: 'nav.donate',    Outline: GiftOutline,   Solid: GiftSolid   },
 ]
 
 export default function Sidebar({ activePage, onNavigate }) {

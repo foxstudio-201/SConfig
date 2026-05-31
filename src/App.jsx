@@ -13,6 +13,7 @@ import ToolsPage from './components/pages/ToolsPage'
 import ServersPage from './components/pages/ServersPage'
 import FilesPage from './components/pages/FilesPage'
 import SettingsPage from './components/pages/SettingsPage'
+import DonatePage from './components/pages/DonatePage'
 
 export default function App() {
   const [activePage, setActivePage] = useState('dashboard')
@@ -43,6 +44,7 @@ export default function App() {
             {activePage === 'servers'   && <ServersPage />}
             {activePage === 'files'     && <FilesPage />}
             {activePage === 'settings'  && <SettingsPage />}
+            {activePage === 'donate'    && <DonatePage />}
           </main>
         </div>
       </div>

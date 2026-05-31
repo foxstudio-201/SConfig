@@ -109,9 +109,28 @@ npm run electron:build
 ```
 
 - Tạo icon (`scripts/generate-icons.mjs`), build Vite, đóng gói **electron-builder**.
-- Output: thư mục `dist-electron/` (installer NSIS Windows x64).
+- Output: thư mục `dist-electron/` — Windows: NSIS `.exe`; Linux (trên CI hoặc máy Linux): `.AppImage`, `.deb`, `.rpm`.
+
+### CI / GitHub Releases
+
+Workflow [`.github/workflows/build-release.yml`](.github/workflows/build-release.yml) build **Windows + Linux** (x64) khi:
+
+- Push tag `v*` (ví dụ `v1.0.0` — phải **trùng** `version` trong `package.json`), hoặc
+- Chạy thủ công **Actions → Build & Release SConfig → Run workflow** (chỉ artifact, không tạo Release).
+
+Secrets GitHub (ký mã tùy chọn): xem [`.github/GITHUB_SECRETS.md`](.github/GITHUB_SECRETS.md).
+
+```bash
+# Ví dụ phát hành v1.0.1
+# 1. Sửa "version" trong package.json → 1.0.1
+git add package.json && git commit -m "chore: release v1.0.1"
+git tag v1.0.1
+git push origin main
+git push origin v1.0.1
+```
 
 ---
+
 
 ## Cấu trúc dự án
 

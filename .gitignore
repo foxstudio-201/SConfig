@@ -1,8 +1,42 @@
 node_modules/
 dist/
 dist-electron/
+
 # Bedrock converter core
 electron/bedrockPipeline.cjs
 src/components/tools/bedrockConverter/
+
+# Env & secrets
 .env
+.env.*
+!.env.example
 *.local
+
+# Code signing — không đưa lên Git
+certs/
+*.pfx
+*.p12
+key/CSC_BASE64.txt
+
+# OS & editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/*.log
+*.swp
+*.swo
+
+# Logs & cache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.cache/
+coverage/
+*.tsbuildinfo
+
+# Electron / builder temp
+*.blockmap
+builder-debug.yml
+builder-effective-config.yaml

@@ -136,8 +136,13 @@ export default function UpdateWindowApp() {
         ? t('updateWindow.availableDetail', { version: updateInfo.latestVersion })
         : updateInfo?.message
 
-  const openRelease = () => {
+  const openDownload = () => {
     const url = updateInfo?.url
+    if (url) window.sconfigAPI?.openExternal?.(url)
+  }
+
+  const openReleasePage = () => {
+    const url = updateInfo?.releaseUrl
     if (url) window.sconfigAPI?.openExternal?.(url)
   }
 
@@ -236,10 +241,21 @@ export default function UpdateWindowApp() {
           {hasUpdate && updateInfo?.url && !checking && (
             <button
               type="button"
-              onClick={openRelease}
+              onClick={openDownload}
               className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-indigo-400/40 bg-gradient-to-r from-indigo-600/80 to-violet-600/80 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 hover:brightness-110 active:scale-[0.99] transition-all"
             >
               <ArrowTopRightOnSquareIcon className="w-4 h-4" />
+              {updateInfo?.hasInstaller
+                ? t('updateWindow.downloadInstaller')
+                : t('updateWindow.openRelease')}
+            </button>
+          )}
+          {hasUpdate && updateInfo?.hasInstaller && updateInfo?.releaseUrl && !checking && (
+            <button
+              type="button"
+              onClick={openReleasePage}
+              className="w-full py-2 rounded-xl border border-white/[0.08] text-[11px] font-medium text-white/45 hover:text-white/70 transition-all"
+            >
               {t('updateWindow.openRelease')}
             </button>
           )}
