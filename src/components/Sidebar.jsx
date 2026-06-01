@@ -1,5 +1,6 @@
 import AppLogo from './AppLogo'
 import { useI18n } from '../context/I18nContext'
+import { useUpdate } from '../context/UpdateContext'
 import {
   HomeIcon as HomeOutline,
   WrenchScrewdriverIcon as ToolOutline,
@@ -29,7 +30,7 @@ const NAV_BOTTOM = [
   { id: 'settings', labelKey: 'nav.settings', Outline: CogOutline, Solid: CogSolid },
 ]
 
-function NavButton({ id, labelKey, Outline, Solid, activePage, onNavigate, t }) {
+function NavButton({ id, labelKey, Outline, Solid, activePage, onNavigate, t, showDot }) {
   const isActive = activePage === id
   const Icon = isActive ? Solid : Outline
   const label = t(labelKey)
@@ -50,6 +51,10 @@ function NavButton({ id, labelKey, Outline, Solid, activePage, onNavigate, t }) 
         <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-indigo-400 rounded-r-full" />
       )}
       <Icon className="w-6 h-6" />
+      {/* Update dot */}
+      {showDot && (
+        <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-amber-400 border border-black/60 animate-pulse" />
+      )}
       <span className="
         pointer-events-none absolute left-[calc(100%+10px)] px-2.5 py-1.5
         bg-[#13131f] border border-white/[0.08] rounded-lg
@@ -65,6 +70,8 @@ function NavButton({ id, labelKey, Outline, Solid, activePage, onNavigate, t }) 
 
 export default function Sidebar({ activePage, onNavigate }) {
   const { t } = useI18n()
+  const { updateInfo } = useUpdate()
+  const hasUpdate = updateInfo?.status === 'available'
 
   return (
     <aside className="w-[68px] flex flex-col items-center py-4 bg-black/25 backdrop-blur-md border-r border-white/[0.05] z-50 overflow-visible">
@@ -85,7 +92,14 @@ export default function Sidebar({ activePage, onNavigate }) {
         <div className="w-full h-px bg-white/[0.07] mb-2" />
         <div className="flex flex-col gap-1">
           {NAV_BOTTOM.map((item) => (
-            <NavButton key={item.id} {...item} activePage={activePage} onNavigate={onNavigate} t={t} />
+            <NavButton
+              key={item.id}
+              {...item}
+              activePage={activePage}
+              onNavigate={onNavigate}
+              t={t}
+              showDot={item.id === 'settings' && hasUpdate}
+            />
           ))}
         </div>
       </div>

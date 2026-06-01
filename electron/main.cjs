@@ -253,6 +253,69 @@ ipcMain.handle('open-external', async (_, url) => {
   return false
 })
 
+// ── Download installer & auto-run ─────────────────────────────────────────────
+ipcMain.handle('download-installer', async (_, { url, fileName }) => {
+  if (!url || !/^https?:\/\//i.test(url)) {
+    return { ok: false, error: 'Invalid URL' }
+  }
+
+  const os = require('os')
+  const destPath = path.join(os.tmpdir(), fileName || 'SConfig-Setup.exe')
+
+  try {
+    // Stream download via Electron net module
+    const response = await net.fetch(url)
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+
+    const totalBytes = parseInt(response.headers.get('content-length') || '0', 10)
+    let downloaded = 0
+    const chunks = []
+
+    const reader = response.body.getReader()
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      chunks.push(value)
+      downloaded += value.length
+      // Send progress to update window
+      if (updateWindow && !updateWindow.isDestroyed()) {
+        updateWindow.webContents.send('download-progress', {
+          downloaded,
+          total: totalBytes,
+          percent: totalBytes > 0 ? Math.round((downloaded / totalBytes) * 100) : -1,
+        })
+      }
+    }
+
+    // Write to temp file
+    const buffer = Buffer.concat(chunks.map(c => Buffer.from(c)))
+    fs.writeFileSync(destPath, buffer)
+
+    return { ok: true, path: destPath }
+  } catch (e) {
+    return { ok: false, error: e.message }
+  }
+})
+
+ipcMain.handle('run-installer', async (_, filePath) => {
+  try {
+    const { spawn } = require('child_process')
+    if (process.platform === 'win32') {
+      // Run NSIS installer — /S for silent is optional, omit so user sees installer UI
+      spawn(filePath, [], { detached: true, stdio: 'ignore' }).unref()
+    } else if (process.platform === 'linux') {
+      // Make AppImage executable then run
+      fs.chmodSync(filePath, 0o755)
+      spawn(filePath, [], { detached: true, stdio: 'ignore' }).unref()
+    }
+    // Quit app so installer can replace files
+    setTimeout(() => app.quit(), 500)
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e.message }
+  }
+})
+
 // ── File system helpers ───────────────────────────────────────────────────────
 ipcMain.handle('select-folder', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {

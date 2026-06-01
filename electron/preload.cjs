@@ -47,6 +47,13 @@ contextBridge.exposeInMainWorld('sconfigAPI', {
   openExternal: (url) => ipcRenderer.invoke('open-external', url),
   minimizeUpdateWindow: () => ipcRenderer.send('minimize-update-window'),
   closeUpdateWindow: () => ipcRenderer.send('close-update-window'),
+  downloadInstaller: (opts) => ipcRenderer.invoke('download-installer', opts),
+  runInstaller: (filePath) => ipcRenderer.invoke('run-installer', filePath),
+  onDownloadProgress: (callback) => {
+    const handler = (_, data) => callback(data)
+    ipcRenderer.on('download-progress', handler)
+    return () => ipcRenderer.removeListener('download-progress', handler)
+  },
 
   mcTextureEnsure: (payload) => ipcRenderer.invoke('mc-texture-ensure', payload),
   mcTextureCacheInfo: () => ipcRenderer.invoke('mc-texture-cache-info'),

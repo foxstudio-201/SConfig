@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import {
   ArrowPathIcon,
   ArrowTopRightOnSquareIcon,
@@ -6,6 +6,8 @@ import {
   ExclamationTriangleIcon,
   CloudArrowDownIcon,
   SparklesIcon,
+  ArrowDownTrayIcon,
+  BoltIcon,
 } from '@heroicons/react/24/outline'
 import AppLogo from './components/AppLogo'
 import UpdateTitleBar from './components/UpdateTitleBar'
@@ -84,6 +86,12 @@ export default function UpdateWindowApp() {
   const [checking, setChecking] = useState(true)
   const [error, setError] = useState(null)
 
+  // Download state
+  const [dlPhase, setDlPhase] = useState(null) // null | 'downloading' | 'running' | 'done' | 'error'
+  const [dlPercent, setDlPercent] = useState(0)
+  const [dlError, setDlError] = useState(null)
+  const unsubRef = useRef(null)
+
   const runCheck = useCallback(async () => {
     const api = window.sconfigAPI
     if (!api?.checkAppUpdates) {
@@ -93,6 +101,9 @@ export default function UpdateWindowApp() {
     }
     setChecking(true)
     setError(null)
+    setDlPhase(null)
+    setDlPercent(0)
+    setDlError(null)
     try {
       const [info, update] = await Promise.all([
         api.getAppInfo?.() ?? Promise.resolve(null),
@@ -110,6 +121,17 @@ export default function UpdateWindowApp() {
   useEffect(() => {
     runCheck()
   }, [runCheck])
+
+  // Subscribe to download progress events
+  useEffect(() => {
+    const api = window.sconfigAPI
+    if (!api?.onDownloadProgress) return
+    const unsub = api.onDownloadProgress(({ percent }) => {
+      setDlPercent(percent >= 0 ? percent : -1)
+    })
+    unsubRef.current = unsub
+    return () => unsub?.()
+  }, [])
 
   const status = updateInfo?.status
   const theme = statusTheme(status)
@@ -136,9 +158,32 @@ export default function UpdateWindowApp() {
         ? t('updateWindow.availableDetail', { version: updateInfo.latestVersion })
         : updateInfo?.message
 
-  const openDownload = () => {
+  async function handleDownload() {
+    const api = window.sconfigAPI
+    if (!api?.downloadInstaller) return
+
     const url = updateInfo?.url
-    if (url) window.sconfigAPI?.openExternal?.(url)
+    const fileName = updateInfo?.assetName || 'SConfig-Setup.exe'
+
+    setDlPhase('downloading')
+    setDlPercent(0)
+    setDlError(null)
+
+    const result = await api.downloadInstaller({ url, fileName })
+    if (!result.ok) {
+      setDlPhase('error')
+      setDlError(result.error || 'Download failed')
+      return
+    }
+
+    setDlPhase('running')
+    const runResult = await api.runInstaller(result.path)
+    if (!runResult.ok) {
+      setDlPhase('error')
+      setDlError(runResult.error || 'Could not launch installer')
+      return
+    }
+    setDlPhase('done')
   }
 
   const openReleasePage = () => {
@@ -239,25 +284,88 @@ export default function UpdateWindowApp() {
 
         <div className="mt-auto flex flex-col gap-2">
           {hasUpdate && updateInfo?.url && !checking && (
-            <button
-              type="button"
-              onClick={openDownload}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-indigo-400/40 bg-gradient-to-r from-indigo-600/80 to-violet-600/80 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 hover:brightness-110 active:scale-[0.99] transition-all"
-            >
-              <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-              {updateInfo?.hasInstaller
-                ? t('updateWindow.downloadInstaller')
-                : t('updateWindow.openRelease')}
-            </button>
-          )}
-          {hasUpdate && updateInfo?.hasInstaller && updateInfo?.releaseUrl && !checking && (
-            <button
-              type="button"
-              onClick={openReleasePage}
-              className="w-full py-2 rounded-xl border border-white/[0.08] text-[11px] font-medium text-white/45 hover:text-white/70 transition-all"
-            >
-              {t('updateWindow.openRelease')}
-            </button>
+            <>
+              {/* Download progress bar */}
+              {dlPhase === 'downloading' && (
+                <div className="rounded-xl border border-indigo-500/25 bg-indigo-500/8 px-4 py-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-indigo-300">{t('updateWindow.downloading')}</span>
+                    <span className="text-xs font-mono text-indigo-300/70">
+                      {dlPercent >= 0 ? `${dlPercent}%` : '…'}
+                    </span>
+                  </div>
+                  <div className="w-full h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-300"
+                      style={{ width: dlPercent >= 0 ? `${dlPercent}%` : '100%', animation: dlPercent < 0 ? 'pulse 1.5s infinite' : 'none' }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Running installer */}
+              {dlPhase === 'running' && (
+                <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-4 py-3 flex items-center gap-3">
+                  <BoltIcon className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  <span className="text-xs font-semibold text-emerald-300">{t('updateWindow.launchingInstaller')}</span>
+                </div>
+              )}
+
+              {/* Download error */}
+              {dlPhase === 'error' && (
+                <div className="rounded-xl border border-red-500/25 bg-red-500/8 px-4 py-3">
+                  <p className="text-xs font-semibold text-red-300 mb-0.5">{t('updateWindow.downloadFailed')}</p>
+                  <p className="text-[10px] text-red-400/70">{dlError}</p>
+                </div>
+              )}
+
+              {/* Main download button */}
+              {!dlPhase && updateInfo?.hasInstaller && (
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-indigo-400/40 bg-gradient-to-r from-indigo-600/80 to-violet-600/80 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 hover:brightness-110 active:scale-[0.99] transition-all"
+                >
+                  <ArrowDownTrayIcon className="w-4 h-4" />
+                  {t('updateWindow.downloadInstaller')}
+                </button>
+              )}
+
+              {/* Fallback: no installer asset yet */}
+              {!dlPhase && !updateInfo?.hasInstaller && (
+                <button
+                  type="button"
+                  onClick={openReleasePage}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-indigo-400/40 bg-gradient-to-r from-indigo-600/80 to-violet-600/80 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 hover:brightness-110 active:scale-[0.99] transition-all"
+                >
+                  <ArrowTopRightOnSquareIcon className="w-4 h-4" />
+                  {t('updateWindow.openRelease')}
+                </button>
+              )}
+
+              {/* View release page link */}
+              {!dlPhase && updateInfo?.hasInstaller && updateInfo?.releaseUrl && (
+                <button
+                  type="button"
+                  onClick={openReleasePage}
+                  className="w-full py-2 rounded-xl border border-white/[0.08] text-[11px] font-medium text-white/45 hover:text-white/70 transition-all"
+                >
+                  {t('updateWindow.openRelease')}
+                </button>
+              )}
+
+              {/* Retry after error */}
+              {dlPhase === 'error' && (
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-indigo-400/40 bg-gradient-to-r from-indigo-600/80 to-violet-600/80 text-sm font-semibold text-white hover:brightness-110 transition-all"
+                >
+                  <ArrowDownTrayIcon className="w-4 h-4" />
+                  {t('updateWindow.retryDownload')}
+                </button>
+              )}
+            </>
           )}
 
           <div className="flex gap-2">
