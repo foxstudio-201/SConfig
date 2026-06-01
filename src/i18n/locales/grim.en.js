@@ -1,5 +1,6 @@
 /** Grim Anticheat — English UI */
 export default {
+  badge: 'Grim Anticheat Tool',
   title: 'Grim Anticheat',
   subtitle: 'Full config.yml & punishments.yml builder',
   preset: 'Preset…',

@@ -47,4 +47,8 @@ contextBridge.exposeInMainWorld('sconfigAPI', {
   openExternal: (url) => ipcRenderer.invoke('open-external', url),
   minimizeUpdateWindow: () => ipcRenderer.send('minimize-update-window'),
   closeUpdateWindow: () => ipcRenderer.send('close-update-window'),
+
+  mcTextureEnsure: (payload) => ipcRenderer.invoke('mc-texture-ensure', payload),
+  mcTextureCacheInfo: () => ipcRenderer.invoke('mc-texture-cache-info'),
+  mcTextureClearCache: () => ipcRenderer.invoke('mc-texture-clear-cache'),
 })

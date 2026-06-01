@@ -1,5 +1,6 @@
 /** Vulcan Anticheat — Tiếng Việt */
 export default {
+  badge: 'Công cụ Vulcan Anticheat',
   title: 'Vulcan Anticheat',
   subtitle: 'Tạo config.yml · {{count}} check trong catalog',
   preset: 'Preset…',

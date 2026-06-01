@@ -7,6 +7,10 @@ import grim from './grim.en.js'
 import permissionBuilder from './permissionBuilder.en.js'
 import placeholderApi from './placeholderApi.en.js'
 import tab from './tab.en.js'
+import deluxeMenus from './deluxeMenus.en.js'
+import citizens from './citizens.en.js'
+import shopGuiPlus from './shopGuiPlus.en.js'
+import shopKeeper from './shopKeeper.en.js'
 import yamlValidator from './yamlValidator.en.js'
 
 /** English UI strings (pages & shell — tool interiors stay English) */
@@ -102,6 +106,12 @@ export default {
     actionToolsDesc: 'YAML validator, color codes, permission builder',
     actionFiles: 'File Explorer',
     actionFilesDesc: 'Browse server files directly',
+    heroTitle: 'Most Used Tools',
+    heroEmpty: 'No usage data yet',
+    heroSoon: 'Community-wide stats coming soon',
+    recentTools: 'Recently Used',
+    recentEmpty: 'No tools used yet',
+    recentEmptyHint: 'Open a tool to start tracking',
   },
   servers: {
     title: 'Servers',
@@ -238,6 +248,26 @@ export default {
         name: 'TAB Config Builder',
         desc: 'Header, footer, tablist, nametags, scoreboard & YAML export with live preview.',
         tag: 'TAB',
+      },
+      deluxeMenus: {
+        name: 'DeluxeMenus Builder',
+        desc: 'GUI menus, slot picker, live preview, click actions and menu YAML export.',
+        tag: 'DeluxeMenus',
+      },
+      citizens: {
+        name: 'Citizens NPC Builder',
+        desc: 'NPC profiles, skins, equipment, traits, waypoints and saves.yml export.',
+        tag: 'Citizens',
+      },
+      shopGuiPlus: {
+        name: 'ShopGUI+ Builder',
+        desc: 'Shop categories, items, main menu links and YAML export.',
+        tag: 'ShopGUI+',
+      },
+      shopKeeper: {
+        name: 'Shopkeepers Builder',
+        desc: 'NPC shop trades, villager-style preview and YAML export.',
+        tag: 'Shopkeepers',
       },
       more: {
         name: 'More tools coming…',
@@ -378,6 +408,10 @@ export default {
   permissionBuilder,
   placeholderApi,
   tab,
+  deluxeMenus,
+  citizens,
+  shopGuiPlus,
+  shopKeeper,
   yamlValidator,
   pixelRank: {
     badge: 'Pixel Resource Pack Tool',

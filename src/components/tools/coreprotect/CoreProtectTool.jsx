@@ -469,12 +469,15 @@ export default function CoreProtectTool({ onBack }) {
 
   return (
     <div className="flex-1 flex flex-col min-h-0 overflow-hidden animate-fade-in">
-      <div className="flex items-center gap-3 px-5 py-3 border-b border-white/[0.06] flex-shrink-0">
+      <div className="flex items-center gap-3 px-5 py-3 border-b border-white/[0.06] flex-shrink-0 flex-wrap">
         <button type="button" onClick={onBack} className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/50 hover:text-white transition-all">
           <ArrowLeftIcon className="w-4 h-4" />
         </button>
         <div className="flex-1 min-w-0">
-          <h1 className="text-lg font-bold text-white">{t('coreProtect.title')}</h1>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[9px] px-1.5 py-0.5 rounded border border-teal-500/30 bg-teal-500/10 text-teal-300 font-semibold uppercase">{t('coreProtect.badge')}</span>
+            <h1 className="text-lg font-bold text-white">{t('coreProtect.title')}</h1>
+          </div>
           <p className="text-xs text-white/35 mt-0.5">{t('coreProtect.subtitle')}</p>
         </div>
         <div className="flex gap-1 flex-shrink-0">

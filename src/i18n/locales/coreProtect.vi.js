@@ -1,5 +1,6 @@
 /** CoreProtect Builder — Tiếng Việt */
 export default {
+  badge: 'Công cụ CoreProtect',
   title: 'CoreProtect Builder',
   subtitle: 'Cấu hình, override theo world, blacklist và lệnh rollback',
   tabConfig: 'Cấu hình',

@@ -7,6 +7,10 @@ import grim from './grim.vi.js'
 import permissionBuilder from './permissionBuilder.vi.js'
 import placeholderApi from './placeholderApi.vi.js'
 import tab from './tab.vi.js'
+import deluxeMenus from './deluxeMenus.vi.js'
+import citizens from './citizens.vi.js'
+import shopGuiPlus from './shopGuiPlus.vi.js'
+import shopKeeper from './shopKeeper.vi.js'
 import yamlValidator from './yamlValidator.vi.js'
 
 /** Giao diện tiếng Việt (trang & shell — bên trong từng tool giữ nguyên) */
@@ -102,6 +106,12 @@ export default {
     actionToolsDesc: 'YAML, mã màu, permission builder...',
     actionFiles: 'Trình duyệt file',
     actionFilesDesc: 'Xem file server trực tiếp',
+    heroTitle: 'Công cụ dùng nhiều nhất',
+    heroEmpty: 'Chưa có dữ liệu sử dụng',
+    heroSoon: 'Sắp có thống kê toàn cộng đồng',
+    recentTools: 'Đã dùng gần đây',
+    recentEmpty: 'Chưa dùng công cụ nào',
+    recentEmptyHint: 'Mở một công cụ để bắt đầu theo dõi',
   },
   servers: {
     title: 'Máy chủ',
@@ -238,6 +248,26 @@ export default {
         name: 'TAB Config Builder',
         desc: 'Header, footer, tablist, nametag, scoreboard & xuất YAML với xem trước.',
         tag: 'TAB',
+      },
+      deluxeMenus: {
+        name: 'DeluxeMenus Builder',
+        desc: 'Menu GUI, chọn slot, preview trực tiếp, click actions và xuất YAML.',
+        tag: 'DeluxeMenus',
+      },
+      citizens: {
+        name: 'Citizens NPC Builder',
+        desc: 'NPC, skin, trang bị, trait, waypoint và xuất saves.yml.',
+        tag: 'Citizens',
+      },
+      shopGuiPlus: {
+        name: 'ShopGUI+ Builder',
+        desc: 'Danh mục shop, item, menu chính và xuất YAML.',
+        tag: 'ShopGUI+',
+      },
+      shopKeeper: {
+        name: 'Shopkeepers Builder',
+        desc: 'Trade NPC shop, preview villager và xuất YAML.',
+        tag: 'Shopkeepers',
       },
       more: {
         name: 'Thêm công cụ sắp tới…',
@@ -377,6 +407,10 @@ export default {
     permissionBuilder,
     placeholderApi,
     tab,
+    deluxeMenus,
+    citizens,
+    shopGuiPlus,
+    shopKeeper,
     yamlValidator,
     pixelRank: {
       badge: 'Công cụ Resource Pack Pixel',

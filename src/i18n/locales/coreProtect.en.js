@@ -1,5 +1,6 @@
 /** CoreProtect Builder — English UI */
 export default {
+  badge: 'CoreProtect Tool',
   title: 'CoreProtect Builder',
   subtitle: 'Config, per-world overrides, blacklist & rollback commands',
   tabConfig: 'Config',

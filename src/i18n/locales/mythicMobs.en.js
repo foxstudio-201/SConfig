@@ -1,5 +1,6 @@
 /** MythicMobs Builder — English UI */
 export default {
+  badge: 'MythicMobs Plugin Tool',
   title: 'MythicMobs Builder',
   subtitle: 'Custom mobs, skills, drops & YAML export',
   loadPreset: 'Load preset…',

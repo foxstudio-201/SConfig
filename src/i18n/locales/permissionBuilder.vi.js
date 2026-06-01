@@ -1,5 +1,6 @@
 /** Permission Builder — Vietnamese UI */
 export default {
+  badge: 'Công cụ LuckPerms',
   title: 'Permission Builder',
   subtitle: 'Nhóm LuckPerms, preset, xuất & đồng bộ REST API',
   tabOverview: 'Tổng quan',

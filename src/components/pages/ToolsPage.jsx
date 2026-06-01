@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useI18n } from '../../context/I18nContext'
+import { recordToolUsage } from './DashboardPage'
 import {
   CheckCircleIcon,
   SwatchIcon,
@@ -32,6 +33,10 @@ import PermissionBuilderTool   from '../tools/luckprems/PermissionBuilderTool'
 import BedrockPackConverterTool from '../tools/converter/BedrockPackConverterTool'
 import PlaceholderApiTool from '../tools/placeholder/PlaceholderApiTool'
 import TabConfigTool from '../tools/tab/TabConfigTool'
+import DeluxeMenusTool from '../tools/deluxeMenus/DeluxeMenusTool'
+import CitizensTool from '../tools/citizens/CitizensTool'
+import ShopGuiPlusTool from '../tools/shopGuiPlus/ShopGuiPlusTool'
+import ShopKeeperTool from '../tools/shopKeeper/ShopKeeperTool'
 
 // ── Tool registry ─────────────────────────────────────────────────────────────
 const TOOLS = [
@@ -231,30 +236,66 @@ const TOOLS = [
     tagColor: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
     component: TabConfigTool,
   },
-]
-
-// ── Coming soon (placeholder cards) ───────────────────────────────────────────
-const COMING_SOON = [
   {
     id: 'deluxe-menus',
     i18nKey: 'deluxeMenus',
+    name: 'DeluxeMenus Builder',
+    desc: 'GUI menus, slot picker, live preview, click actions and menu YAML export.',
     icon: RectangleStackIcon,
-    gradient: 'from-fuchsia-600/15 via-purple-600/10 to-transparent',
-    border: 'border-fuchsia-500/15',
-    iconBg: 'bg-fuchsia-500/10',
-    iconColor: 'text-fuchsia-300/50',
-    tagColor: 'bg-fuchsia-500/10 text-fuchsia-300/50 border-fuchsia-500/20',
+    gradient: 'from-fuchsia-600/25 via-purple-600/15 to-transparent',
+    border: 'border-fuchsia-500/25 hover:border-fuchsia-400/50',
+    iconBg: 'bg-fuchsia-500/20',
+    iconColor: 'text-fuchsia-300',
+    tag: 'DeluxeMenus',
+    tagColor: 'bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/30',
+    component: DeluxeMenusTool,
   },
   {
     id: 'citizens',
     i18nKey: 'citizens',
+    name: 'Citizens NPC Builder',
+    desc: 'NPC profiles, skins, equipment, traits, waypoints and saves.yml export.',
     icon: UserGroupIcon,
-    gradient: 'from-lime-600/15 via-green-600/10 to-transparent',
-    border: 'border-lime-500/15',
-    iconBg: 'bg-lime-500/10',
-    iconColor: 'text-lime-300/50',
-    tagColor: 'bg-lime-500/10 text-lime-300/50 border-lime-500/20',
+    gradient: 'from-lime-600/25 via-green-600/15 to-transparent',
+    border: 'border-lime-500/25 hover:border-lime-400/50',
+    iconBg: 'bg-lime-500/20',
+    iconColor: 'text-lime-300',
+    tag: 'Citizens',
+    tagColor: 'bg-lime-500/20 text-lime-300 border-lime-500/30',
+    component: CitizensTool,
   },
+  {
+    id: 'shopguiplus',
+    i18nKey: 'shopGuiPlus',
+    name: 'ShopGUI+ Builder',
+    desc: 'Shop categories, items, main menu links and YAML export.',
+    icon: ShoppingBagIcon,
+    gradient: 'from-emerald-600/25 via-teal-600/15 to-transparent',
+    border: 'border-emerald-500/25 hover:border-emerald-400/50',
+    iconBg: 'bg-emerald-500/20',
+    iconColor: 'text-emerald-300',
+    tag: 'ShopGUI+',
+    tagColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+    component: ShopGuiPlusTool,
+  },
+  {
+    id: 'shopkeeper',
+    i18nKey: 'shopKeeper',
+    name: 'Shopkeepers Builder',
+    desc: 'NPC shop trades, villager-style preview and YAML export.',
+    icon: BanknotesIcon,
+    gradient: 'from-amber-600/25 via-orange-600/15 to-transparent',
+    border: 'border-amber-500/25 hover:border-amber-400/50',
+    iconBg: 'bg-amber-500/20',
+    iconColor: 'text-amber-300',
+    tag: 'Shopkeepers',
+    tagColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+    component: ShopKeeperTool,
+  },
+]
+
+// ── Coming soon (placeholder cards) ───────────────────────────────────────────
+const COMING_SOON = [
   {
     id: 'worldguard',
     i18nKey: 'worldGuard',
@@ -276,17 +317,7 @@ const COMING_SOON = [
     tagColor: 'bg-amber-500/10 text-amber-300/50 border-amber-500/20',
   },
   {
-    id: 'shopguiplus',
-    i18nKey: 'shopGuiPlus',
-    icon: ShoppingBagIcon,
-    gradient: 'from-emerald-600/15 via-teal-600/10 to-transparent',
-    border: 'border-emerald-500/15',
-    iconBg: 'bg-emerald-500/10',
-    iconColor: 'text-emerald-300/50',
-    tagColor: 'bg-emerald-500/10 text-emerald-300/50 border-emerald-500/20',
-  },
-  {
-    id: 'itemsadder',
+    id: 'essentials',
     i18nKey: 'itemsAdder',
     icon: CubeIcon,
     gradient: 'from-pink-600/15 via-rose-600/10 to-transparent',
@@ -418,9 +449,26 @@ function ComingSoonCard({ tool, translate }) {
 }
 
 // ── Main page ─────────────────────────────────────────────────────────────────
-export default function ToolsPage() {
+export default function ToolsPage({ initialToolId, onToolOpened }) {
   const { t } = useI18n()
   const [activeTool, setActiveTool] = useState(null)
+
+  // Auto-open tool if navigated from dashboard
+  useEffect(() => {
+    if (initialToolId) {
+      const tool = TOOLS.find(t => t.id === initialToolId)
+      if (tool) {
+        setActiveTool(tool)
+        recordToolUsage(tool.id)
+      }
+      onToolOpened?.()
+    }
+  }, [initialToolId])
+
+  function openTool(tool) {
+    setActiveTool(tool)
+    recordToolUsage(tool.id)
+  }
 
   if (activeTool) {
     const ToolComponent = activeTool.component
@@ -438,7 +486,7 @@ export default function ToolsPage() {
 
       <div className={GRID_CLS}>
         {available.map(tool => (
-          <ToolCard key={tool.id} tool={tool} onOpen={setActiveTool} translate={t} />
+          <ToolCard key={tool.id} tool={tool} onOpen={openTool} translate={t} />
         ))}
       </div>
 

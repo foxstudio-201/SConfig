@@ -1,5 +1,6 @@
 /** Vulcan Anticheat — English UI */
 export default {
+  badge: 'Vulcan Anticheat Tool',
   title: 'Vulcan Anticheat',
   subtitle: 'config.yml builder · {{count}} checks in catalog',
   preset: 'Preset…',

@@ -1,5 +1,6 @@
 /** MythicMobs Builder — Tiếng Việt */
 export default {
+  badge: 'Công cụ plugin MythicMobs',
   title: 'MythicMobs Builder',
   subtitle: 'Mob tùy chỉnh, skill, drop và xuất YAML',
   loadPreset: 'Tải preset…',

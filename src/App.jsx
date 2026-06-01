@@ -17,6 +17,7 @@ import DonatePage from './components/pages/DonatePage'
 
 export default function App() {
   const [activePage, setActivePage] = useState('dashboard')
+  const [pendingToolId, setPendingToolId] = useState(null)
   const toastState = useToastState()
   const { ready, progress, label, version, updateInfo } = useBootstrap()
 
@@ -31,16 +32,26 @@ export default function App() {
     )
   }
 
+  function handleNavigate(page, toolId = null) {
+    setActivePage(page)
+    if (toolId) setPendingToolId(toolId)
+  }
+
   return (
     <ToastContext.Provider value={toastState}>
       <AppBackground />
       <div className="w-screen h-screen flex flex-col overflow-hidden relative z-10 animate-fade-in" style={{ background: 'transparent' }}>
         <TitleBar />
         <div className="flex flex-1 overflow-hidden mt-9 relative">
-          <Sidebar activePage={activePage} onNavigate={setActivePage} />
+          <Sidebar activePage={activePage} onNavigate={handleNavigate} />
           <main className="flex-1 flex flex-col overflow-hidden min-h-0 relative">
-            {activePage === 'dashboard' && <DashboardPage onNavigate={setActivePage} />}
-            {activePage === 'tools'     && <ToolsPage />}
+            {activePage === 'dashboard' && <DashboardPage onNavigate={handleNavigate} />}
+            {activePage === 'tools'     && (
+              <ToolsPage
+                initialToolId={pendingToolId}
+                onToolOpened={() => setPendingToolId(null)}
+              />
+            )}
             {activePage === 'servers'   && <ServersPage />}
             {activePage === 'files'     && <FilesPage />}
             {activePage === 'settings'  && <SettingsPage />}

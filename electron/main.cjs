@@ -1,8 +1,23 @@
-const { app, BrowserWindow, ipcMain, dialog, shell, session, Tray, Menu, nativeImage } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, shell, session, Tray, Menu, nativeImage, protocol, net } = require('electron')
 const path = require('path')
 const fs = require('fs')
+const { pathToFileURL } = require('url')
 const { runBootstrap, checkForUpdates } = require('./bootstrap.cjs')
 const bedrockPipeline = require('./bedrockPipeline.cjs')
+const textureCache = require('./textureCache.cjs')
+
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: 'mc-texture',
+    privileges: {
+      standard: true,
+      secure: true,
+      supportFetchAPI: true,
+      corsEnabled: true,
+      stream: true,
+    },
+  },
+])
 
 const pkg = require('../package.json')
 
@@ -159,6 +174,18 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  textureCache.init(app.getPath('userData'))
+
+  protocol.handle('mc-texture', async (request) => {
+    const filePath = textureCache.resolveFileFromUrl(request.url)
+    if (!filePath) return new Response(null, { status: 404 })
+    try {
+      return net.fetch(pathToFileURL(filePath).href)
+    } catch {
+      return new Response(null, { status: 500 })
+    }
+  })
+
   // ── CSP: allow AI API endpoints, block everything else external ─────────────
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     callback({
@@ -169,7 +196,7 @@ app.whenReady().then(() => {
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline'",
             "style-src 'self' 'unsafe-inline'",
-            "img-src 'self' data: blob:",
+            "img-src 'self' data: blob: mc-texture: https://assets.mcasset.cloud https://cdn.jsdelivr.net",
             "font-src 'self' data:",
             "worker-src 'self' blob:",
             `connect-src 'self' ${AI_ORIGINS.join(' ')}`,
@@ -398,6 +425,14 @@ ipcMain.handle('start-bootstrap', async (event) => {
     sendProgress,
   })
 })
+
+ipcMain.handle('mc-texture-ensure', async (_, { material, urls }) => {
+  return textureCache.ensure(material, urls)
+})
+
+ipcMain.handle('mc-texture-cache-info', async () => textureCache.getInfo())
+
+ipcMain.handle('mc-texture-clear-cache', async () => textureCache.clearCache())
 
 ipcMain.handle('bedrock-check-tools', async () => {
   return bedrockPipeline.checkTools(app.getPath('userData'))

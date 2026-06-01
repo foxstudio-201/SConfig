@@ -202,33 +202,33 @@ function GridBrowser() {
 // ── Main ──────────────────────────────────────────────────────────────────────
 export default function GlyphTool({ onBack }) {
   return (
-    <div className="flex-1 overflow-y-auto p-6 animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-6">
-        <button onClick={onBack} className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors text-sm">
-          <ArrowLeftIcon className="w-4 h-4" />Back
+    <div className="flex-1 flex flex-col min-h-0 overflow-hidden animate-fade-in">
+      <div className="flex items-center gap-3 px-5 py-3 border-b border-white/[0.06] flex-shrink-0 flex-wrap">
+        <button onClick={onBack} className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/50 hover:text-white transition-all">
+          <ArrowLeftIcon className="w-4 h-4" />
         </button>
-        <div className="w-px h-4 bg-white/10" />
-        <div>
-          <h1 className="text-xl font-bold text-white">Bedrock Glyph Tool</h1>
-          <p className="text-xs text-white/35 mt-0.5">
-            Convert glyph codes to Unicode characters for use in Minecraft Bedrock resource packs.
-            Based on <span className="text-indigo-300">wiki.bedrock.dev/text/custom-emojis</span>
-          </p>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[9px] px-1.5 py-0.5 rounded border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 font-semibold uppercase">Bedrock Tool</span>
+            <h1 className="text-lg font-bold text-white">Bedrock Glyph Tool</h1>
+          </div>
+          <p className="text-xs text-white/35 mt-0.5">Convert glyph codes to Unicode characters for Minecraft Bedrock resource packs</p>
         </div>
       </div>
 
-      {/* Info banner */}
-      <div className="mb-5 px-4 py-3 rounded-xl bg-indigo-500/8 border border-indigo-500/20 text-[11px] text-indigo-300/80 leading-relaxed">
-        <p className="font-semibold text-indigo-300 mb-1">How Bedrock glyphs work</p>
-        <p>Glyphs are stored in <span className="font-mono bg-black/20 px-1 rounded">RP/font/glyph_E0.png</span>, <span className="font-mono bg-black/20 px-1 rounded">glyph_E1.png</span>, etc.
-        Each file is a 16×16 grid. A code like <span className="font-mono bg-black/20 px-1 rounded">E102</span> means file <span className="font-mono">E1</span>, row 0, col 2.
-        Vanilla uses E0 and E1. Files E2–F8 are free for custom use.</p>
-      </div>
+      <div className="flex-1 overflow-y-auto p-6">
+        {/* Info banner */}
+        <div className="mb-5 px-4 py-3 rounded-xl bg-indigo-500/8 border border-indigo-500/20 text-[11px] text-indigo-300/80 leading-relaxed">
+          <p className="font-semibold text-indigo-300 mb-1">How Bedrock glyphs work</p>
+          <p>Glyphs are stored in <span className="font-mono bg-black/20 px-1 rounded">RP/font/glyph_E0.png</span>, <span className="font-mono bg-black/20 px-1 rounded">glyph_E1.png</span>, etc.
+          Each file is a 16×16 grid. A code like <span className="font-mono bg-black/20 px-1 rounded">E102</span> means file <span className="font-mono">E1</span>, row 0, col 2.
+          Vanilla uses E0 and E1. Files E2–F8 are free for custom use.</p>
+        </div>
 
-      <div className="flex flex-col gap-5">
-        <Converter />
-        <GridBrowser />
+        <div className="flex flex-col gap-5">
+          <Converter />
+          <GridBrowser />
+        </div>
       </div>
     </div>
   )

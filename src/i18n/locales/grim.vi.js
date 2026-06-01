@@ -1,5 +1,6 @@
 /** Grim Anticheat — Tiếng Việt */
 export default {
+  badge: 'Công cụ Grim Anticheat',
   title: 'Grim Anticheat',
   subtitle: 'Tạo config.yml & punishments.yml đầy đủ',
   preset: 'Preset…',

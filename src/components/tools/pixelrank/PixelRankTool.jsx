@@ -410,8 +410,10 @@ export default function PixelRankTool({ onBack }) {
             </button>
             <div className="w-px h-4 bg-white/10 flex-shrink-0" />
             <div>
-              <p className="text-[10px] text-indigo-400/70 uppercase tracking-widest font-semibold">{t('pixelRank.badge')}</p>
-              <h1 className="text-xl font-bold text-white leading-tight">{t('pixelRank.title')}</h1>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[9px] px-1.5 py-0.5 rounded border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 font-semibold uppercase">{t('pixelRank.badge')}</span>
+                <h1 className="text-lg font-bold text-white leading-tight">{t('pixelRank.title')}</h1>
+              </div>
               <p className="text-xs text-white/35 mt-0.5">{t('pixelRank.subtitle')}</p>
             </div>
           </div>

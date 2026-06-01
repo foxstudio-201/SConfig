@@ -1,5 +1,6 @@
 /** MMOCore Builder — English UI */
 export default {
+  badge: 'MMOCore Plugin Tool',
   title: 'MMOCore Builder',
   subtitle: 'Classes, professions, skills, stats & YAML export',
   loadPreset: 'Load preset…',

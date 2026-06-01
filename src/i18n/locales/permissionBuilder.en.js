@@ -1,5 +1,6 @@
 /** Permission Builder — English UI */
 export default {
+  badge: 'LuckPerms Tool',
   title: 'Permission Builder',
   subtitle: 'LuckPerms groups, presets, export & REST API sync',
   tabOverview: 'Overview',

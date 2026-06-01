@@ -55,17 +55,20 @@ export default function ColorPreviewTool({ onBack }) {
   function insertCode(code) { setInput(v => v + `&${code}`) }
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 animate-fade-in">
-      <div className="flex items-center gap-3 mb-6">
-        <button onClick={onBack} className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors text-sm">
-          <ArrowLeftIcon className="w-4 h-4" />Back
+    <div className="flex-1 flex flex-col min-h-0 overflow-hidden animate-fade-in">
+      <div className="flex items-center gap-3 px-5 py-3 border-b border-white/[0.06] flex-shrink-0 flex-wrap">
+        <button onClick={onBack} className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/50 hover:text-white transition-all">
+          <ArrowLeftIcon className="w-4 h-4" />
         </button>
-        <div className="w-px h-4 bg-white/10" />
-        <div>
-          <h1 className="text-xl font-bold text-white">Color Code Preview</h1>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[9px] px-1.5 py-0.5 rounded border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 font-semibold uppercase">Text Tool</span>
+            <h1 className="text-lg font-bold text-white">Color Code Preview</h1>
+          </div>
           <p className="text-xs text-white/35 mt-0.5">Preview Minecraft &amp; color codes in real time</p>
         </div>
       </div>
+      <div className="flex-1 overflow-y-auto p-6">
       <div className="max-w-2xl flex flex-col gap-5">
         <div>
           <label className="text-[10px] text-white/30 uppercase tracking-wider mb-1.5 block">Input text with &amp; codes</label>
@@ -102,6 +105,7 @@ export default function ColorPreviewTool({ onBack }) {
             ))}
           </div>
         </div>
+      </div>
       </div>
     </div>
   )

@@ -1,5 +1,6 @@
 /** MMOCore Builder — Tiếng Việt */
 export default {
+  badge: 'Công cụ plugin MMOCore',
   title: 'MMOCore Builder',
   subtitle: 'Class, profession, skill, stat và xuất YAML',
   loadPreset: 'Tải preset…',
