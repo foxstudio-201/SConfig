@@ -158,6 +158,6 @@ export default {
   on: 'ON',
   off: 'OFF',
   chipMatrix: 'Spawner Core',
-  chipHint: 'Hover a node for details · click to edit',
+  chipHint: 'Hover hex nodes — tooltip follows cursor · click to edit',
   tooltipClick: 'Click to open this section',
 }

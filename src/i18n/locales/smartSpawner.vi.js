@@ -158,6 +158,6 @@ export default {
   on: 'Bật',
   off: 'Tắt',
   chipMatrix: 'Spawner Core',
-  chipHint: 'Di chuột vào nút để xem chi tiết · bấm để chỉnh',
+  chipHint: 'Di chuột lục giác để xem tooltip · bấm để chỉnh',
   tooltipClick: 'Bấm để mở mục cấu hình này',
 }

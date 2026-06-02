@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { storeGet, storeSet } from '../../hooks/useStore'
+import { useWhatsNewModal } from '../../hooks/useWhatsNewModal'
 import { useI18n } from '../../context/I18nContext'
+import WhatsNewModal from '../WhatsNewModal'
 import {
   ServerStackIcon,
   WrenchScrewdriverIcon,
@@ -214,10 +216,11 @@ function QuickActionsPanel({ onNavigate }) {
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
-export default function DashboardPage({ onNavigate, onOpenTool }) {
+export default function DashboardPage({ onNavigate }) {
   const { t } = useI18n()
   const [serverPath, setServerPath] = useState(null)
   const [recentTools, setRecentTools] = useState([])
+  const { visible: whatsNewOpen, dismiss: dismissWhatsNew } = useWhatsNewModal(true)
 
   useEffect(() => {
     storeGet('serverPath').then(p => setServerPath(p || null))
@@ -225,12 +228,19 @@ export default function DashboardPage({ onNavigate, onOpenTool }) {
   }, [])
 
   const handleOpenTool = useCallback((toolId) => {
-    // Navigate to tools page and open the tool
-    onNavigate('tools', toolId)
+    onNavigate('tools', toolId || undefined)
   }, [onNavigate])
+
+  const handleWhatsNewOpenTool = useCallback((toolId) => {
+    dismissWhatsNew()
+    onNavigate('tools', toolId || undefined)
+  }, [dismissWhatsNew, onNavigate])
 
   return (
     <div className="flex-1 overflow-y-auto p-6 animate-fade-in">
+      {whatsNewOpen && (
+        <WhatsNewModal onClose={dismissWhatsNew} onOpenTool={handleWhatsNewOpenTool} />
+      )}
       {/* Page title */}
       <div className="mb-5">
         <h1 className="text-2xl font-bold text-white">{t('dashboard.title')}</h1>
