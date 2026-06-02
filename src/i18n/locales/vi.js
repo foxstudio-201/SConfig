@@ -4,6 +4,8 @@ import coreProtect from './coreProtect.vi.js'
 import mythicMobs from './mythicMobs.vi.js'
 import vulcan from './vulcan.vi.js'
 import grim from './grim.vi.js'
+import lpx from './lpx.vi.js'
+import smartSpawner from './smartSpawner.vi.js'
 import permissionBuilder from './permissionBuilder.vi.js'
 import placeholderApi from './placeholderApi.vi.js'
 import tab from './tab.vi.js'
@@ -240,6 +242,16 @@ export default {
         desc: 'Cấu hình config.yml & punishments.yml Grim, UI chip và xuất YAML.',
         tag: 'GrimAC',
       },
+      lpxAnticheat: {
+        name: 'LPX AntiPacketExploit',
+        desc: 'Tạo config.yml đầy đủ — check packet, flood, printer mode và xuất YAML.',
+        tag: 'LPX',
+      },
+      smartSpawner: {
+        name: 'SmartSpawner Builder',
+        desc: 'config.yml, spawners_settings.yml (85 mob) & item_prices.yml, xuất YAML trực tiếp.',
+        tag: 'SmartSpawner',
+      },
       bedrockPackConverter: {
         name: 'Chuyển pack Bedrock',
         desc: 'Java / ItemsAdder / Oraxen → Bedrock — icon pack, quét & xuất .mcpack.',
@@ -415,6 +427,8 @@ export default {
     mythicMobs,
     vulcan,
     grim,
+    lpx,
+    smartSpawner,
     permissionBuilder,
     placeholderApi,
     tab,

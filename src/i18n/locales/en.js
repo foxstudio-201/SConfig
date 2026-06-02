@@ -4,6 +4,8 @@ import coreProtect from './coreProtect.en.js'
 import mythicMobs from './mythicMobs.en.js'
 import vulcan from './vulcan.en.js'
 import grim from './grim.en.js'
+import lpx from './lpx.en.js'
+import smartSpawner from './smartSpawner.en.js'
 import permissionBuilder from './permissionBuilder.en.js'
 import placeholderApi from './placeholderApi.en.js'
 import tab from './tab.en.js'
@@ -240,6 +242,16 @@ export default {
         desc: 'Configure Grim config.yml & punishments.yml with live chip signal UI and YAML export.',
         tag: 'GrimAC',
       },
+      lpxAnticheat: {
+        name: 'LPX AntiPacketExploit',
+        desc: 'Full config.yml builder — packet checks, flood limits, printer mode & YAML export.',
+        tag: 'LPX',
+      },
+      smartSpawner: {
+        name: 'SmartSpawner Builder',
+        desc: 'config.yml, spawners_settings.yml (85 mobs) & item_prices.yml with live YAML export.',
+        tag: 'SmartSpawner',
+      },
       bedrockPackConverter: {
         name: 'Bedrock Pack Converter',
         desc: 'Convert Java / ItemsAdder / Oraxen packs toward Bedrock — custom pack icon, scan & .mcpack export.',
@@ -416,6 +428,8 @@ export default {
   mythicMobs,
   vulcan,
   grim,
+  lpx,
+  smartSpawner,
   permissionBuilder,
   placeholderApi,
   tab,

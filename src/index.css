@@ -324,3 +324,83 @@
   z-index: 2;
   border-radius: inherit;
 }
+
+/* LPX packet matrix — elliptical orbit, rounded-square nodes */
+@keyframes lpx-arc-flow {
+  0% { stroke-dashoffset: 28; opacity: 0.25; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.25; }
+}
+@keyframes lpx-packet-orbit {
+  0%, 100% { opacity: 0.25; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes lpx-core-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--lpx-core-glow, rgba(168,85,247,0.45))); }
+  50% { filter: drop-shadow(0 0 22px var(--lpx-core-glow, rgba(217,70,239,0.75))); }
+}
+@keyframes lpx-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes lpx-shield-breathe {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.35; }
+}
+.lpx-arc-flow { animation: lpx-arc-flow 2.6s ease-in-out infinite; }
+.lpx-packet-orb { animation: lpx-packet-orbit 2s ease-in-out infinite; }
+.lpx-core-pulse { animation: lpx-core-pulse 2.3s ease-in-out infinite; }
+.lpx-orbit-ring { transform-origin: 180px 180px; animation: lpx-orbit-spin 48s linear infinite; }
+.lpx-shield-ring-outer { animation: lpx-shield-breathe 3s ease-in-out infinite; }
+.lpx-shield-ring-mid { animation: lpx-shield-breathe 2.2s ease-in-out infinite reverse; }
+.lpx-shield-glyph { animation: lpx-packet-orbit 2.8s ease-in-out infinite; }
+.lpx-node-pulse { animation: lpx-core-pulse 1.7s ease-in-out infinite; }
+.lpx-core-label { animation: logo-line-shimmer 3s ease-in-out infinite; }
+.lpx-scanline {
+  box-shadow: inset 0 0 50px rgba(139, 92, 246, 0.1), 0 0 30px rgba(0, 0, 0, 0.55);
+}
+.lpx-scanline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, rgba(168, 85, 247, 0.06), transparent 65%);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+@keyframes ss-hive-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(16, 185, 129, 0.2); }
+  50% { box-shadow: 0 0 16px rgba(16, 185, 129, 0.45); }
+}
+.ss-hive-core { animation: ss-hive-pulse 2.5s ease-in-out infinite; }
+.ss-hive-cell:active { transform: scale(0.96); }
+
+/* SmartSpawner chip matrix */
+@keyframes ss-signal-flow {
+  0% { stroke-dashoffset: 24; opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.2; }
+}
+@keyframes ss-core-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--ss-core-glow, rgba(52,211,153,0.4))); }
+  50% { filter: drop-shadow(0 0 18px var(--ss-core-glow, rgba(52,211,153,0.7))); }
+}
+@keyframes ss-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.ss-signal-line { stroke-dasharray: 6 12; animation: ss-signal-flow 2.5s ease-in-out infinite; }
+.ss-core-pulse { animation: ss-core-pulse 2.4s ease-in-out infinite; }
+.ss-orbit-ring { transform-origin: 180px 180px; animation: ss-orbit-spin 52s linear infinite; }
+.ss-node-ring { animation: ss-core-pulse 1.6s ease-in-out infinite; }
+.ss-chip-scanline {
+  box-shadow: inset 0 0 48px rgba(16, 185, 129, 0.08), 0 0 28px rgba(0, 0, 0, 0.45);
+}
+.ss-chip-tooltip {
+  animation: ss-tooltip-in 0.15s ease-out;
+}
+@keyframes ss-tooltip-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -35,6 +35,8 @@ const TOOL_META = {
   'mythicmobs-builder':   { name: 'MythicMobs Builder',      icon: SparklesIcon,           iconBg: 'bg-red-500/20',     iconColor: 'text-red-300',     tag: 'MythicMobs',    tagColor: 'bg-red-500/15 text-red-300 border-red-500/25' },
   'vulcan-anticheat':     { name: 'Vulcan Anticheat',        icon: ShieldCheckIcon,        iconBg: 'bg-orange-500/20',  iconColor: 'text-orange-300',  tag: 'Vulcan',        tagColor: 'bg-orange-500/15 text-orange-300 border-orange-500/25' },
   'grim-anticheat':       { name: 'Grim Anticheat',          icon: ShieldCheckIcon,        iconBg: 'bg-cyan-500/20',    iconColor: 'text-cyan-300',    tag: 'GrimAC',        tagColor: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/25' },
+  'lpx-anticheat':        { name: 'LPX AntiPacketExploit',   icon: ShieldCheckIcon,        iconBg: 'bg-violet-500/20',  iconColor: 'text-violet-300',  tag: 'LPX',           tagColor: 'bg-violet-500/15 text-violet-300 border-violet-500/25' },
+  'smart-spawner':        { name: 'SmartSpawner Builder',    icon: SparklesIcon,           iconBg: 'bg-emerald-500/20', iconColor: 'text-emerald-300', tag: 'SmartSpawner',  tagColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/25' },
   'bedrock-pack-converter':{ name: 'Bedrock Pack Converter', icon: CubeIcon,               iconBg: 'bg-sky-500/20',     iconColor: 'text-sky-300',     tag: 'Bedrock',       tagColor: 'bg-sky-500/15 text-sky-300 border-sky-500/25' },
   'permission-builder':   { name: 'Permission Builder',      icon: ShieldCheckIcon,        iconBg: 'bg-violet-500/20',  iconColor: 'text-violet-300',  tag: 'LuckPerms',     tagColor: 'bg-violet-500/15 text-violet-300 border-violet-500/25' },
   'placeholderapi':       { name: 'PlaceholderAPI Helper',   icon: CommandLineIcon,        iconBg: 'bg-white/[0.08]',   iconColor: 'text-white/60',    tag: 'PAPI',          tagColor: 'bg-white/[0.06] text-white/50 border-white/[0.1]' },
@@ -117,8 +119,8 @@ function RecentToolsPanel({ recentTools, onOpenTool }) {
   const { t } = useI18n()
 
   return (
-    <div className="flex flex-col min-h-0">
-      <div className="flex items-center gap-2 mb-3">
+    <div className="flex flex-col min-h-0 h-full">
+      <div className="flex items-center gap-2 mb-3 flex-shrink-0">
         <ClockIcon className="w-3.5 h-3.5 text-white/30" />
         <h2 className="text-xs font-semibold text-white/30 uppercase tracking-widest">{t('dashboard.recentTools')}</h2>
       </div>
@@ -130,7 +132,7 @@ function RecentToolsPanel({ recentTools, onOpenTool }) {
           <p className="text-[11px] text-white/15">{t('dashboard.recentEmptyHint')}</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-1.5">
+        <div className="flex-1 overflow-y-auto min-h-0 flex flex-col gap-1.5 pr-0.5" style={{ maxHeight: 320 }}>
           {recentTools.map(id => {
             const meta = TOOL_META[id]
             if (!meta) return null
@@ -139,7 +141,7 @@ function RecentToolsPanel({ recentTools, onOpenTool }) {
               <button
                 key={id}
                 onClick={() => onOpenTool(id)}
-                className="group flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] hover:border-white/[0.1] transition-all text-left"
+                className="group flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] hover:border-white/[0.1] transition-all text-left flex-shrink-0"
               >
                 <div className={`w-8 h-8 rounded-lg ${meta.iconBg} flex items-center justify-center flex-shrink-0`}>
                   <Icon className={`w-4 h-4 ${meta.iconColor}`} />

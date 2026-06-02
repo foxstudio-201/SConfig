@@ -29,6 +29,8 @@ import CoreProtectTool         from '../tools/coreprotect/CoreProtectTool'
 import MythicMobsTool           from '../tools/mythicmob/MythicMobsTool'
 import GrimAnticheatTool       from '../tools/grimanticheat/GrimAnticheatTool'
 import VulcanAnticheatTool     from '../tools/vulcan/VulcanAnticheatTool'
+import LpxAnticheatTool        from '../tools/lpx/LpxAnticheatTool'
+import SmartSpawnerTool        from '../tools/smartspawner/SmartSpawnerTool'
 import PermissionBuilderTool   from '../tools/luckprems/PermissionBuilderTool'
 import BedrockPackConverterTool from '../tools/converter/BedrockPackConverterTool'
 import PlaceholderApiTool from '../tools/placeholder/PlaceholderApiTool'
@@ -179,6 +181,34 @@ const TOOLS = [
     tag: 'GrimAC',
     tagColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
     component: GrimAnticheatTool,
+  },
+  {
+    id: 'lpx-anticheat',
+    i18nKey: 'lpxAnticheat',
+    name: 'LPX AntiPacketExploit',
+    desc: 'Configure LPX config.yml — packet exploit checks, flood limits, printer mode & YAML export.',
+    icon: ShieldCheckIcon,
+    gradient: 'from-violet-600/25 via-purple-600/15 to-transparent',
+    border: 'border-violet-500/25 hover:border-violet-400/50',
+    iconBg: 'bg-violet-500/20',
+    iconColor: 'text-violet-300',
+    tag: 'LPX',
+    tagColor: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
+    component: LpxAnticheatTool,
+  },
+  {
+    id: 'smart-spawner',
+    i18nKey: 'smartSpawner',
+    name: 'SmartSpawner Builder',
+    desc: 'Configure config.yml, mob drops (spawners_settings.yml) & sell prices with YAML export.',
+    icon: SparklesIcon,
+    gradient: 'from-emerald-600/25 via-teal-600/15 to-transparent',
+    border: 'border-emerald-500/25 hover:border-emerald-400/50',
+    iconBg: 'bg-emerald-500/20',
+    iconColor: 'text-emerald-300',
+    tag: 'SmartSpawner',
+    tagColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+    component: SmartSpawnerTool,
   },
   {
     id: 'bedrock-pack-converter',
