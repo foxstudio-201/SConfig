@@ -46,10 +46,17 @@ export default function CustomDropdown({
     const el = triggerRef.current
     if (!el) return
     const rect = el.getBoundingClientRect()
+    const viewH = window.innerHeight
+    const menuH = 260 // max-h-56 ~ 224px + padding
+    const spaceBelow = viewH - rect.bottom - 12
+    const spaceAbove = rect.top - 12
+    const openAbove = spaceBelow < menuH && spaceAbove > spaceBelow
+
     setMenuStyle({
-      top: rect.bottom + 6,
+      top: openAbove ? rect.top - 6 : rect.bottom + 6,
       left: rect.left,
       width: Math.max(rect.width, menuMinWidth),
+      openAbove,
     })
   }, [menuMinWidth])
 
@@ -101,7 +108,14 @@ export default function CustomDropdown({
   const menu = open && createPortal(
     <div
       ref={menuRef}
-      style={{ top: menuStyle.top, left: menuStyle.left, width: menuStyle.width }}
+      style={{
+        ...(menuStyle.openAbove
+          ? { bottom: window.innerHeight - menuStyle.top, left: menuStyle.left }
+          : { top: menuStyle.top, left: menuStyle.left }),
+        width: menuStyle.width,
+        minWidth: Math.max(menuStyle.width, 180),
+        maxWidth: Math.min(menuStyle.width * 1.5, 420),
+      }}
       className={`fixed z-[9999] rounded-xl border border-white/[0.10] bg-[#12121c]/95 backdrop-blur-xl shadow-[0_16px_48px_rgba(0,0,0,0.55)] overflow-hidden animate-fade-in ${menuClassName}`}
     >
       {searchable && (

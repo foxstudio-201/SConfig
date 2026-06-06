@@ -6,6 +6,11 @@ import vulcan from './vulcan.en.js'
 import grim from './grim.en.js'
 import lpx from './lpx.en.js'
 import smartSpawner from './smartSpawner.en.js'
+import totemGuard from './totemGuard.en.js'
+import exploitFixer from './exploitFixer.en.js'
+import skript from './skript.en.js'
+import excellentCrates from './excellentCrates.en.js'
+import advancedEnchantments from './advancedEnchantments.en.js'
 import permissionBuilder from './permissionBuilder.en.js'
 import placeholderApi from './placeholderApi.en.js'
 import tab from './tab.en.js'
@@ -135,22 +140,49 @@ export default {
     browseTools: 'All tools',
     dismiss: 'Got it',
     features: {
-      lpx: {
-        title: 'LPX AntiPacketExploit Builder',
-        plugin: 'Plugin: LPX (Mineleak)',
-        desc: 'Visual editor for LPX config.yml — packet checks, punishments, Discord webhooks, and presets.',
-        b1: 'Hex chip matrix for Messages, Options, Printer, Mechanics, Logger, Discord & checks',
-        b2: 'Per-check VL, punish commands, and category presets (Balanced / Strict / Lenient)',
-        b3: 'Live YAML output for plugins/LPX/config.yml',
+      excellentCrates: {
+        title: 'ExcellentCrates Builder',
+        plugin: 'Plugin: ExcellentCrates',
+        desc: 'Full crate builder — keys, rewards with rarities, milestones, animations, pushback and YAML export.',
+        b1: 'Visual reward editor with rarity colors, weight system and win limits',
+        b2: 'Key manager — physical & virtual keys with custom items and glow',
+        b3: 'Milestones, mass open, cooldown, open cost and hologram configuration',
+        b4: '6 presets: Vote, Common, Rare, Legendary, Seasonal crates ready to use',
+      },
+      advancedEnchantments: {
+        title: 'Advanced Enchantments Builder',
+        plugin: 'Plugin: AdvancedEnchantments',
+        desc: 'Create custom enchantments with per-level effects, triggers, conditions and full YAML export.',
+        b1: '65+ effects with smart builder — select template, fill params, pick target',
+        b2: 'Clickable trigger chips, 80+ enchantment list for required/incompatible settings',
+        b3: 'Multi-level editor with per-level chance, cooldown, effects and conditions',
+        b4: '8 presets: Venom, Berserk, Lifesteal, Explosive, Speed, Lucky Miner, Thunder Strike',
+      },
+      skript: {
+        title: 'Skript Script Builder',
+        plugin: 'Plugin: Skript',
+        desc: 'Build complete .sk files with commands, events, functions, options and live code preview.',
+        b1: 'Command builder with cooldown, permission, aliases and condition/effect snippets',
+        b2: '30+ event types with priority, filter and custom syntax support',
+        b3: 'Function editor with parameters, return types and body code',
+        b4: '7 presets: Home System, Welcome Kit, Chat Format, Economy, Death Messages, Server Core',
+      },
+      exploitFixer: {
+        title: 'ExploitFixer Builder',
+        plugin: 'Plugin: ExploitFixer',
+        desc: 'Configure anti-crash, anti-dupe and packet limiter rules with chip UI and YAML export.',
+        b1: 'Visual chip-style config for all exploit categories',
+        b2: 'Anti-crash, anti-dupe, illegal items and packet flood protection',
+        b3: 'Presets: Lenient, Balanced, Strict — live config.yml export',
         b4: '',
       },
-      smartSpawner: {
-        title: 'SmartSpawner Builder',
-        plugin: 'Plugin: SmartSpawner',
-        desc: 'Full builder for config.yml, spawners_settings.yml (85 mobs), and item_prices.yml.',
-        b1: 'Hex core navigation with hover tooltips for every config section',
-        b2: 'Per-mob XP, loot tables, head textures + sell-price editor',
-        b3: 'Presets: Balanced, Performance, Economy — live YAML for all three files',
+      totemGuard: {
+        title: 'TotemGuard Builder',
+        plugin: 'Plugin: TotemGuard',
+        desc: 'Build config.yml, checks.yml, messages.yml and webhooks.yml with live YAML export.',
+        b1: 'Multi-file builder: settings, checks, messages, webhooks',
+        b2: 'Per-check configuration with VL thresholds and punishments',
+        b3: 'Discord webhook integration and custom message templates',
         b4: '',
       },
     },
@@ -217,6 +249,8 @@ export default {
   toolsPage: {
     title: 'Tools',
     subtitle: 'Plugin configuration utilities — click a tool to open it',
+    searchPlaceholder: 'Search tools…',
+    noResults: 'No tools found',
     comingSoon: 'Coming soon',
     comingSoonDesc: 'Popular plugin builders in development — stay tuned.',
     soonBadge: 'Soon',
@@ -280,6 +314,31 @@ export default {
         name: 'SmartSpawner Builder',
         desc: 'config.yml, spawners_settings.yml (85 mobs) & item_prices.yml with live YAML export.',
         tag: 'SmartSpawner',
+      },
+      totemGuard: {
+        name: 'TotemGuard Builder',
+        desc: 'Build config.yml, checks.yml, messages.yml and webhooks.yml from one workspace.',
+        tag: 'TotemGuard',
+      },
+      exploitFixer: {
+        name: 'ExploitFixer Builder',
+        desc: 'Configure anti-crash/dupe packet protections with chip navigation and YAML export.',
+        tag: 'ExploitFixer',
+      },
+      skriptBuilder: {
+        name: 'Skript Script Builder',
+        desc: 'Build complete .sk scripts — commands, events, functions, options & live preview.',
+        tag: 'Skript',
+      },
+      excellentCrates: {
+        name: 'ExcellentCrates Builder',
+        desc: 'Create crates with keys, rewards, rarities, milestones, animations and YAML export.',
+        tag: 'ExcellentCrates',
+      },
+      advancedEnchantments: {
+        name: 'Advanced Enchantments Builder',
+        desc: 'Create custom enchantments with levels, effects, triggers and export YAML.',
+        tag: 'AdvancedEnchantments',
       },
       bedrockPackConverter: {
         name: 'Bedrock Pack Converter',
@@ -459,6 +518,11 @@ export default {
   grim,
   lpx,
   smartSpawner,
+  totemGuard,
+  exploitFixer,
+  skript,
+  excellentCrates,
+  advancedEnchantments,
   permissionBuilder,
   placeholderApi,
   tab,

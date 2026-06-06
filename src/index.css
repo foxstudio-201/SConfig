@@ -404,3 +404,16 @@
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes ef-signal-flow {
+  0% { stroke-dashoffset: 24; opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.2; }
+}
+@keyframes ef-core-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(56,189,248,0.45)); }
+  50% { filter: drop-shadow(0 0 18px rgba(56,189,248,0.75)); }
+}
+.ef-signal-line { stroke-dasharray: 6 12; animation: ef-signal-flow 2.5s ease-in-out infinite; }
+.ef-core-pulse { animation: ef-core-pulse 2.4s ease-in-out infinite; }
+.ef-scanline { box-shadow: inset 0 0 46px rgba(14,165,233,0.08), 0 0 28px rgba(0, 0, 0, 0.45); }

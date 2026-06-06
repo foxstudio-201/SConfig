@@ -6,6 +6,11 @@ import vulcan from './vulcan.vi.js'
 import grim from './grim.vi.js'
 import lpx from './lpx.vi.js'
 import smartSpawner from './smartSpawner.vi.js'
+import totemGuard from './totemGuard.vi.js'
+import exploitFixer from './exploitFixer.vi.js'
+import skript from './skript.vi.js'
+import excellentCrates from './excellentCrates.vi.js'
+import advancedEnchantments from './advancedEnchantments.vi.js'
 import permissionBuilder from './permissionBuilder.vi.js'
 import placeholderApi from './placeholderApi.vi.js'
 import tab from './tab.vi.js'
@@ -135,22 +140,49 @@ export default {
     browseTools: 'Tất cả công cụ',
     dismiss: 'Đã hiểu',
     features: {
-      lpx: {
-        title: 'LPX AntiPacketExploit Builder',
-        plugin: 'Plugin: LPX (Mineleak)',
-        desc: 'Chỉnh config.yml LPX trực quan — kiểm tra packet, punish, Discord webhook và preset.',
-        b1: 'Ma trận chip lục giác: Messages, Options, Printer, Mechanics, Logger, Discord & checks',
-        b2: 'VL từng check, lệnh punish, preset Balanced / Strict / Lenient',
-        b3: 'Xuất YAML trực tiếp cho plugins/LPX/config.yml',
+      excellentCrates: {
+        title: 'ExcellentCrates Builder',
+        plugin: 'Plugin: ExcellentCrates',
+        desc: 'Builder crate đầy đủ — key, phần thưởng, độ hiếm, milestone, animation và xuất YAML.',
+        b1: 'Editor phần thưởng với màu rarity, hệ thống weight và giới hạn thắng',
+        b2: 'Quản lý key — vật lý & ảo, item tùy chỉnh và glow',
+        b3: 'Milestone, mass open, cooldown, chi phí mở và hologram',
+        b4: '6 preset: Vote, Common, Rare, Legendary, Seasonal sẵn sàng sử dụng',
+      },
+      advancedEnchantments: {
+        title: 'Advanced Enchantments Builder',
+        plugin: 'Plugin: AdvancedEnchantments',
+        desc: 'Tạo phép thuật tùy chỉnh với effect theo level, trigger, condition và xuất YAML.',
+        b1: '65+ effect với builder thông minh — chọn mẫu, điền tham số, chọn target',
+        b2: 'Chip trigger click được, 80+ enchantment cho cài đặt yêu cầu/xung đột',
+        b3: 'Editor đa level: chance, cooldown, effects và conditions riêng từng level',
+        b4: '8 preset: Venom, Berserk, Lifesteal, Explosive, Speed, Lucky Miner, Thunder Strike',
+      },
+      skript: {
+        title: 'Skript Script Builder',
+        plugin: 'Plugin: Skript',
+        desc: 'Tạo file .sk hoàn chỉnh — lệnh, sự kiện, hàm, options và xem trước code.',
+        b1: 'Builder lệnh với cooldown, permission, alias và snippet điều kiện/hiệu ứng',
+        b2: '30+ loại event với priority, filter và custom syntax',
+        b3: 'Editor hàm với tham số, kiểu trả về và body',
+        b4: '7 preset: Home, Welcome Kit, Chat Format, Economy, Death Messages, Server Core',
+      },
+      exploitFixer: {
+        title: 'ExploitFixer Builder',
+        plugin: 'Plugin: ExploitFixer',
+        desc: 'Cấu hình anti-crash, anti-dupe, packet limiter với giao diện chip và xuất YAML.',
+        b1: 'Config dạng chip trực quan cho tất cả loại exploit',
+        b2: 'Chống crash, dupe, item bất hợp pháp và flood packet',
+        b3: 'Preset: Nhẹ, Cân bằng, Nghiêm ngặt — xuất config.yml trực tiếp',
         b4: '',
       },
-      smartSpawner: {
-        title: 'SmartSpawner Builder',
-        plugin: 'Plugin: SmartSpawner',
-        desc: 'Builder đầy đủ cho config.yml, spawners_settings.yml (85 mob) và item_prices.yml.',
-        b1: 'Core lục giác + tooltip theo chuột cho từng mục cấu hình',
-        b2: 'XP/loot/head texture từng mob + chỉnh giá bán item',
-        b3: 'Preset Cân bằng, Hiệu năng, Economy',
+      totemGuard: {
+        title: 'TotemGuard Builder',
+        plugin: 'Plugin: TotemGuard',
+        desc: 'Tạo config.yml, checks.yml, messages.yml và webhooks.yml với xuất YAML trực tiếp.',
+        b1: 'Builder đa file: cài đặt, checks, messages, webhooks',
+        b2: 'Cấu hình từng check với ngưỡng VL và hình phạt',
+        b3: 'Tích hợp Discord webhook và template tin nhắn tùy chỉnh',
         b4: '',
       },
     },
@@ -217,6 +249,8 @@ export default {
   toolsPage: {
     title: 'Công cụ',
     subtitle: 'Tiện ích cấu hình plugin — bấm để mở',
+    searchPlaceholder: 'Tìm công cụ…',
+    noResults: 'Không tìm thấy công cụ',
     comingSoon: 'Sắp ra mắt',
     comingSoonDesc: 'Công cụ plugin phổ biến đang phát triển — theo dõi bản cập nhật.',
     soonBadge: 'Sắp có',
@@ -280,6 +314,31 @@ export default {
         name: 'SmartSpawner Builder',
         desc: 'config.yml, spawners_settings.yml (85 mob) & item_prices.yml, xuất YAML trực tiếp.',
         tag: 'SmartSpawner',
+      },
+      totemGuard: {
+        name: 'TotemGuard Builder',
+        desc: 'Tạo config.yml, checks.yml, messages.yml và webhooks.yml trong một công cụ.',
+        tag: 'TotemGuard',
+      },
+      exploitFixer: {
+        name: 'ExploitFixer Builder',
+        desc: 'Cấu hình chống crash/dupe packet với chip điều hướng và xuất YAML.',
+        tag: 'ExploitFixer',
+      },
+      skriptBuilder: {
+        name: 'Skript Script Builder',
+        desc: 'Tạo file .sk hoàn chỉnh — lệnh, sự kiện, hàm, options & xem trước trực tiếp.',
+        tag: 'Skript',
+      },
+      excellentCrates: {
+        name: 'ExcellentCrates Builder',
+        desc: 'Tạo crate với key, phần thưởng, độ hiếm, milestone, animation và xuất YAML.',
+        tag: 'ExcellentCrates',
+      },
+      advancedEnchantments: {
+        name: 'Advanced Enchantments Builder',
+        desc: 'Tạo phép thuật tùy chỉnh với level, hiệu ứng, trigger và xuất YAML.',
+        tag: 'AdvancedEnchantments',
       },
       bedrockPackConverter: {
         name: 'Chuyển pack Bedrock',
@@ -458,6 +517,11 @@ export default {
     grim,
     lpx,
     smartSpawner,
+    totemGuard,
+    exploitFixer,
+    skript,
+    excellentCrates,
+    advancedEnchantments,
     permissionBuilder,
     placeholderApi,
     tab,

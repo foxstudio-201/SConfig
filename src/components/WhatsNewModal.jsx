@@ -30,6 +30,30 @@ const THEME = {
     bullet: 'text-emerald-400/80',
     btn: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/25',
   },
+  amber: {
+    card: 'border-amber-500/25 bg-gradient-to-br from-amber-500/12 to-transparent',
+    iconBg: 'bg-amber-500/20',
+    iconColor: 'text-amber-300',
+    badge: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+    bullet: 'text-amber-400/80',
+    btn: 'bg-amber-500/15 border-amber-500/30 text-amber-200 hover:bg-amber-500/25',
+  },
+  cyan: {
+    card: 'border-cyan-500/25 bg-gradient-to-br from-cyan-500/12 to-transparent',
+    iconBg: 'bg-cyan-500/20',
+    iconColor: 'text-cyan-300',
+    badge: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
+    bullet: 'text-cyan-400/80',
+    btn: 'bg-cyan-500/15 border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/25',
+  },
+  sky: {
+    card: 'border-sky-500/25 bg-gradient-to-br from-sky-500/12 to-transparent',
+    iconBg: 'bg-sky-500/20',
+    iconColor: 'text-sky-300',
+    badge: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
+    bullet: 'text-sky-400/80',
+    btn: 'bg-sky-500/15 border-sky-500/30 text-sky-200 hover:bg-sky-500/25',
+  },
 }
 
 function FeatureCard({ feature, onTry }) {

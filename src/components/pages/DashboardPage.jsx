@@ -23,6 +23,7 @@ import {
   TableCellsIcon,
   CheckBadgeIcon,
   CubeIcon,
+  GiftIcon,
 } from '@heroicons/react/24/outline'
 
 // ── Tool metadata map (id → display info) ─────────────────────────────────────
@@ -39,6 +40,9 @@ const TOOL_META = {
   'grim-anticheat':       { name: 'Grim Anticheat',          icon: ShieldCheckIcon,        iconBg: 'bg-cyan-500/20',    iconColor: 'text-cyan-300',    tag: 'GrimAC',        tagColor: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/25' },
   'lpx-anticheat':        { name: 'LPX AntiPacketExploit',   icon: ShieldCheckIcon,        iconBg: 'bg-violet-500/20',  iconColor: 'text-violet-300',  tag: 'LPX',           tagColor: 'bg-violet-500/15 text-violet-300 border-violet-500/25' },
   'smart-spawner':        { name: 'SmartSpawner Builder',    icon: SparklesIcon,           iconBg: 'bg-emerald-500/20', iconColor: 'text-emerald-300', tag: 'SmartSpawner',  tagColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/25' },
+  'totem-guard':          { name: 'TotemGuard Builder',      icon: ShieldCheckIcon,        iconBg: 'bg-sky-500/20',     iconColor: 'text-sky-300',     tag: 'TotemGuard',    tagColor: 'bg-sky-500/15 text-sky-300 border-sky-500/25' },
+  'exploit-fixer':        { name: 'ExploitFixer Builder',    icon: ShieldCheckIcon,        iconBg: 'bg-cyan-500/20',    iconColor: 'text-cyan-300',    tag: 'ExploitFixer',  tagColor: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/25' },
+  'skript-builder':       { name: 'Skript Script Builder',   icon: CommandLineIcon,        iconBg: 'bg-violet-500/20',  iconColor: 'text-violet-300',  tag: 'Skript',        tagColor: 'bg-violet-500/15 text-violet-300 border-violet-500/25' },
   'bedrock-pack-converter':{ name: 'Bedrock Pack Converter', icon: CubeIcon,               iconBg: 'bg-sky-500/20',     iconColor: 'text-sky-300',     tag: 'Bedrock',       tagColor: 'bg-sky-500/15 text-sky-300 border-sky-500/25' },
   'permission-builder':   { name: 'Permission Builder',      icon: ShieldCheckIcon,        iconBg: 'bg-violet-500/20',  iconColor: 'text-violet-300',  tag: 'LuckPerms',     tagColor: 'bg-violet-500/15 text-violet-300 border-violet-500/25' },
   'placeholderapi':       { name: 'PlaceholderAPI Helper',   icon: CommandLineIcon,        iconBg: 'bg-white/[0.08]',   iconColor: 'text-white/60',    tag: 'PAPI',          tagColor: 'bg-white/[0.06] text-white/50 border-white/[0.1]' },
@@ -47,6 +51,8 @@ const TOOL_META = {
   'citizens':             { name: 'Citizens NPC Builder',    icon: UserGroupIcon,          iconBg: 'bg-lime-500/20',    iconColor: 'text-lime-300',    tag: 'Citizens',      tagColor: 'bg-lime-500/15 text-lime-300 border-lime-500/25' },
   'shopguiplus':          { name: 'ShopGUI+ Builder',        icon: ShoppingBagIcon,        iconBg: 'bg-emerald-500/20', iconColor: 'text-emerald-300', tag: 'ShopGUI+',      tagColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/25' },
   'shopkeeper':           { name: 'Shopkeepers Builder',     icon: BanknotesIcon,          iconBg: 'bg-amber-500/20',   iconColor: 'text-amber-300',   tag: 'Shopkeepers',   tagColor: 'bg-amber-500/15 text-amber-300 border-amber-500/25' },
+  'excellent-crates':     { name: 'ExcellentCrates Builder', icon: GiftIcon,               iconBg: 'bg-amber-500/20',   iconColor: 'text-amber-300',   tag: 'ExcellentCrates', tagColor: 'bg-amber-500/15 text-amber-300 border-amber-500/25' },
+  'advanced-enchantments': { name: 'Advanced Enchantments',  icon: SparklesIcon,           iconBg: 'bg-emerald-500/20', iconColor: 'text-emerald-300', tag: 'AE',             tagColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/25' },
 }
 
 // ── Persist recent tools to store ─────────────────────────────────────────────
